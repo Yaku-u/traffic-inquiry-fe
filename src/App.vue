@@ -1,9 +1,8 @@
 <template>
-    <PathQuery/>
+    <router-view />
 </template>
 
-<script setup>
-    import PathQuery from './components/PathQuery.vue'
+<script setup lang="ts">
 </script>
 
 <style lang="less" scoped>
