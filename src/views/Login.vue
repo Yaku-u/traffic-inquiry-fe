@@ -21,8 +21,8 @@
     import { ref } from 'vue'
     import { useRouter } from 'vue-router'
     import { ElMessage } from 'element-plus'
-    const username = ref('')
-    const password = ref('')
+    const username = ref<string>('')
+    const password = ref<string>('')
     const router = useRouter()
     
     const login = () => {
