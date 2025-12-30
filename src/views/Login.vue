@@ -10,9 +10,7 @@
                 <el-input v-model="password" style="width: 240px; height: 40px;" type="password" placeholder="password" show-password />
             </div>
             <div class="button">
-                <router-link to="/home">
-                    <el-button type="primary">Login</el-button>
-                </router-link>
+                <el-button type="primary" @click="login">Login</el-button>
             </div>
 
         </div>
@@ -21,8 +19,33 @@
 
 <script lang="ts" setup>
     import { ref } from 'vue'
+    import { useRouter } from 'vue-router'
+    import { ElMessage } from 'element-plus'
     const username = ref('')
     const password = ref('')
+    const router = useRouter()
+    
+    const login = () => {
+        if(!username.value || !password.value){
+            ElMessage.error("账号密码不能为空")
+            return 
+        }
+
+        if(username.value === 'admin' && password.value === '123456'){
+            ElMessage.success("管理员登录成功")
+            router.push('/admin')
+            return 
+        }
+
+        if(username.value === 'user' && password.value === '123456'){
+            ElMessage.success("用户登录成功")
+            router.push('/home')
+            return
+        }
+
+            ElMessage.error("账号或密码错误")
+    }
+
     
 
 </script>
