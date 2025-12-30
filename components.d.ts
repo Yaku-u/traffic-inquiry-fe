@@ -18,10 +18,15 @@ declare module 'vue' {
     ElRadio: typeof import('element-plus/es')['ElRadio']
     ElRadioGroup: typeof import('element-plus/es')['ElRadioGroup']
     ElSelect: typeof import('element-plus/es')['ElSelect']
+    ElTable: typeof import('element-plus/es')['ElTable']
+    ElTableColumn: typeof import('element-plus/es')['ElTableColumn']
     Menu: typeof import('./src/components/menu.vue')['default']
     PathQuery: typeof import('./src/components/PathQuery.vue')['default']
     QueryForm: typeof import('./src/components/QueryForm.vue')['default']
+    ResultForm: typeof import('./src/components/ResultForm.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
+    TrafficGraph: typeof import('./src/components/TrafficGraph.vue')['default']
+    TrafficMap: typeof import('./src/components/TrafficMap.vue')['default']
   }
 }

@@ -1,10 +1,31 @@
 .container{
     width: 100vw;
     height: 100vh;
-    background-color: #f4f4f4;
+    background-image: linear-gradient(to top, #dfe9f3 0%, white 100%);
 
-    // & .footer{
-    //     height: 100px;
-    //     background-color: #444;
-    // }
+    // background-color: #f4f4f4;
+
+    & .main{
+        display: flex;
+        align-items: center;
+        justify-content: space-around;
+        // padding: 10px;
+        height: 90%;
+
+        & .left{
+            display: flex;
+            flex-direction: column;
+            height: 80%;
+            // width: 50%;
+            
+            & .form{
+                margin: 10px;
+            }
+        }
+
+        & .right{
+            height: 90%;
+            width: 50%;
+        }
+    }
 }

@@ -9,13 +9,13 @@
             </el-form-item>
             <el-form-item label="策略">
                 <el-radio-group v-model="form.type">
-                    <el-radio value="time">最少时间</el-radio>
-                    <el-radio value="cost">最少花费</el-radio>
-                    <el-radio value="hub">最少中转</el-radio>
+                    <el-radio value="Fastest">最少时间</el-radio>
+                    <el-radio value="Cheapest">最少花费</el-radio>
+                    <el-radio value="LessTransfer">最少中转</el-radio>
                 </el-radio-group>
             </el-form-item>
             <el-form-item>
-                <el-button type="primary" @click="">Create</el-button>
+                <el-button type="primary" >Create</el-button>
                 <el-button>Cancel</el-button>
             </el-form-item>
         </el-form>
@@ -37,10 +37,11 @@
 
 <style lang="less" scoped>
     .main {
-        width: 600px;
+        width: 700px;
         height: 400px;
         border: 1px solid #d5d5d5;
-        border-radius: 10px;
+        border-radius: 5px;
+        // background-color: #f9f9f9;
         background-color: #fff;
         display: flex;
         align-items: center;

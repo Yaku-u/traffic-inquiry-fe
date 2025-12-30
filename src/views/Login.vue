@@ -10,7 +10,9 @@
                 <el-input v-model="password" style="width: 240px; height: 40px;" type="password" placeholder="password" show-password />
             </div>
             <div class="button">
-                <el-button type="primary">Login</el-button>
+                <router-link to="/home">
+                    <el-button type="primary">Login</el-button>
+                </router-link>
             </div>
 
         </div>
