@@ -7,9 +7,9 @@
             <el-table-column label="出发时间" prop="startTime" />
             <el-table-column label="到达时间" prop="endTime" />
             <el-table-column label="费用" prop="price" />
-            <el-table-column align="right">
+            <el-table-column align="right" v-if="showDelete">
                 <template #default="scope">
-                    <el-button size="small" type="danger" @click="handleDelete(scope.$index)">
+                    <el-button size="small" type="danger" @click="$emit('delete-row', scope.$index)">
                         Delete
                     </el-button>
                 </template>
@@ -20,15 +20,11 @@
 </template>
 
 <script lang="ts" setup>
-    import { storeToRefs } from 'pinia'
-    import { useTrafficStore } from '../stores/TrafficStore'
-
-    const trafficStore = useTrafficStore()
-    const { tableData } = storeToRefs(trafficStore)
-
-    function handleDelete(index: number) {
-        console.log('delete row:', index)
-    }
+    const props = defineProps<{
+        tableData: any[]
+        showDelete?: boolean
+    }>()
+    
 </script>
 
 

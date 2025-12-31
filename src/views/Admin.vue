@@ -1,12 +1,12 @@
 <template>
     <div class="container">
-        <Menu/>
+        <Menu />
         <div class="main">
             <div class="left">
-                
+                <ManageForm />
             </div>
             <div class="right">
-                <TrafficGraph/>
+                <ResultForm />
             </div>
         </div>
     </div>
@@ -15,11 +15,12 @@
 
 <script lang="ts" setup>
     import Menu from '../components/menu.vue'
-    import TrafficGraph from '../components/TrafficGraph.vue'
+    import ManageForm from '../components/ManageForm.vue'
+    import ResultForm from '../components/ResultForm.vue'
+    
 
 </script>
 
 <style lang="less" scoped>
-
+    @import url(../assets/admin.less);
 </style>>
-
