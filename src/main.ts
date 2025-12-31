@@ -8,5 +8,5 @@ import 'element-plus/theme-chalk/el-message.css'
 
 createApp(App)
     .use(router)
-    .use(createPinia)
+    .use(createPinia())
     .mount('#app')

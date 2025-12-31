@@ -3,12 +3,16 @@
 </template>
 
 <script setup lang="ts">
-    import { ref, onMounted, onBeforeUnmount } from 'vue'
-    import type { ECharts, EChartsOption } from 'echarts'
+    import { ref, onMounted, onBeforeUnmount, watch } from 'vue'
     import * as echarts from 'echarts'
+    import type { ECharts, EChartsOption } from 'echarts'
+    import { useTrafficStore } from '../stores/TrafficStore'
+    import { storeToRefs } from 'pinia'
+
+    const trafficStore = useTrafficStore()
+    const { tableData } = storeToRefs(trafficStore)
 
     const chartRef = ref<HTMLDivElement | null>(null)
-
     let chart: ECharts | null = null
 
     interface TrafficNode {
@@ -17,15 +21,14 @@
         symbolSize: number
     }
 
-
     interface TrafficLink {
         source: string
         target: string
-        value: number 
-        transport: string 
-        label?: {
+        value: number
+        transport: string
+        label: {
             show: boolean
-            formatter?: string
+            formatter: string
         }
         lineStyle?: {
             color?: string
@@ -33,78 +36,87 @@
         }
     }
 
+    function generateGraphData(tableData: any[]) {
+        const nodeMap = new Map<string, TrafficNode>()
+        const links: TrafficLink[] = []
 
+        tableData.forEach((route: any) => {
+            // 添加起点和终点节点
+            if (!nodeMap.has(route.from)) nodeMap.set(route.from, { id: route.from, name: route.from, symbolSize: 60 })
+            if (!nodeMap.has(route.to)) nodeMap.set(route.to, { id: route.to, name: route.to, symbolSize: 60 })
 
-    const nodes: TrafficNode[] = [
-        { id: 'beijing', name: '北京', symbolSize: 60 },
-        { id: 'shanghai', name: '上海', symbolSize: 60 },
-        { id: 'guangdong', name: '广东', symbolSize: 60 },
-        { id: 'qingdao', name: '青岛', symbolSize: 40 }
-    ]
+            // 计算行程时间（小时数）
+            const start = route.startTime.split(':').map(Number)
+            const end = route.endTime.split(':').map(Number)
+            let duration = (end[0] + end[1] / 60) - (start[0] + start[1] / 60)
+            if (duration < 0) duration += 24 // 跨天处理
+            duration = Math.round(duration * 10) / 10
 
-    const links: TrafficLink[] = [
-        {
-            source: 'beijing',
-            target: 'jinan',
-            value: 90, 
-            transport: '高铁',
-            label: {
-                show: true,
-                formatter: '高铁 1.5h'
-            },
-            lineStyle: { color: '#5470C6' }
-        },
-        {
-            source: 'beijing',
-            target: 'shanghai',
-            value: 120,
-            transport: '飞机',
-            label: {
-                show: true,
-                formatter: '飞机 2h'
-            },
-            lineStyle: { color: '#EE6666', type: 'dashed' }
-        }
-    ]
-
-
-    const option: EChartsOption = {
-    
-        tooltip: {
-            formatter: (params: any) => {
-                if (params.dataType === 'edge') {
-                    return `路线信息：${params.value}`
-                }
-                return params.name
-            }
-        },
-        series: [
-            {
-                type: 'graph',
-                layout: 'force',
-                roam: true,
+            links.push({
+                source: route.from,
+                target: route.to,
+                value: route.price,
+                transport: route.type, 
                 label: {
-                    show: true
+                    show: true,
+                    formatter: `${route.type} ${duration}h`
                 },
-                force: {
-                    repulsion: 300,
-                    edgeLength: 150
-                },
-                data: nodes,
-                links: links
-            }
-        ]
+                lineStyle: {
+                    color: route.type === 'Fastest' ? '#5470C6' : '#EE6666',
+                    type: route.type === 'LessTransfer' ? 'dashed' : 'solid'
+                }
+            })
+        })
+
+        return {
+            nodes: Array.from(nodeMap.values()),
+            links
+        }
     }
 
+    function renderChart() {
+        if (!chartRef.value) return
+        if (!chart) chart = echarts.init(chartRef.value)
+
+        const { nodes, links } = generateGraphData(tableData.value)
+
+        const option: EChartsOption = {
+            tooltip: {
+                formatter: (params: any) => {
+                    if (params.dataType === 'edge') {
+                        return `路线：${params.source} → ${params.target}，费用：${params.value}`
+                    }
+                    return params.name
+                }
+            },
+            series: [
+                {
+                    type: 'graph',
+                    layout: 'force',
+                    roam: true,
+                    label: { show: true },
+                    force: {
+                        repulsion: 300,
+                        edgeLength: 150
+                    },
+                    data: nodes,
+                    links
+                }
+            ]
+        }
+
+        chart.setOption(option)
+    }
 
     onMounted(() => {
-        if (!chartRef.value) return
-
-        chart = echarts.init(chartRef.value)
-        chart.setOption(option)
-
+        renderChart()
         window.addEventListener('resize', resizeChart)
     })
+
+    // 数据变化时自动更新图表
+    watch(tableData, () => {
+        renderChart()
+    }, { deep: true })
 
     onBeforeUnmount(() => {
         window.removeEventListener('resize', resizeChart)
@@ -122,7 +134,6 @@
         height: 800px;
         border: 1px solid #d5d5d5;
         border-radius: 5px;
-        // background-color: #f4f4f4;
         background-color: #fff;
     }
 </style>

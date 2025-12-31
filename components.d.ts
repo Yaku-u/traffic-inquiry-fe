@@ -30,4 +30,7 @@ declare module 'vue' {
     TrafficGraph: typeof import('./src/components/TrafficGraph.vue')['default']
     TrafficMap: typeof import('./src/components/TrafficMap.vue')['default']
   }
+  export interface GlobalDirectives {
+    vLoading: typeof import('element-plus/es')['ElLoadingDirective']
+  }
 }

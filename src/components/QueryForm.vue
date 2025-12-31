@@ -31,6 +31,8 @@
     import { reactive, ref, onMounted } from 'vue'
     import { ElMessage } from 'element-plus';
     import axios from 'axios';
+    import { useTrafficStore } from '../stores/TrafficStore'
+
     type QueryType = 'Fastest' | 'Cheapest' | 'LessTransfer'
 
     interface QueryFrom {
@@ -39,26 +41,26 @@
         type: QueryType
     }
 
-    interface RouteResult {
-        num: string,
-        from: string,
-        to: string,
-        startTime: string,
-        endTime: string,
-        price: number
-    }
+    // interface RouteResult {
+    //     num: string,
+    //     from: string,
+    //     to: string,
+    //     startTime: string,
+    //     endTime: string,
+    //     price: number
+    // }
 
+    const trafficStore = useTrafficStore()
     const cityList = ref<string[]>([
-        '北京',
-        '上海',
-        '广州',
-        '深圳',
-        '杭州',
-        '南京',
-        '武汉',
+        // '北京',
+        // '上海',
+        // '广州',
+        // '深圳',
+        // '杭州',
+        // '南京',
+        // '武汉',
     ])
-    const TableData = ref<RouteResult[]>([])
-
+    // const TableData = ref<RouteResult[]>([])
     const form = reactive<QueryFrom>({
         fromWhere: '',
         toWhere: '',
@@ -66,23 +68,23 @@
     })
 
     // 获取城市信息
-    // onMounted(async () => {
-    //     try {
-    //         const res = await axios.get<string[]>('/api/cities')
-    //         cityList.value = res.data
-    //     } catch (e) {
-    //         console.error('获取城市列表失败')
-    //     }
-    // })
+    onMounted(async () => {
+        try {
+            const res = await axios.get<string[]>('/api/cities')
+            cityList.value = res.data
+        } catch (e) {
+            console.error('获取城市列表失败')
+        }
+    })
 
     //数据模拟
-    function mockQueryRoute(from: string, to: string, type: QueryType): RouteResult[] {
-        return [
-            { num: '001', from, to, startTime: '08:00', endTime: '12:00', price: 300 },
-            { num: '002', from, to, startTime: '09:00', endTime: '13:00', price: 250 },
-            { num: '003', from, to, startTime: '10:00', endTime: '14:00', price: 200 },
-        ]
-    }
+    // function mockQueryRoute(from: string, to: string, type: QueryType): RouteResult[] {
+    //     return [
+    //         { num: '001', from, to, startTime: '08:00', endTime: '12:00', price: 300 },
+    //         { num: '002', from, to, startTime: '09:00', endTime: '13:00', price: 250 },
+    //         { num: '003', from, to, startTime: '10:00', endTime: '14:00', price: 200 },
+    //     ]
+    // }
 
     async function submitQuery() {
         if (!form.fromWhere || !form.toWhere || !form.type) {
@@ -95,25 +97,19 @@
             return
         }
 
-        // try {
-        //     console.log({ ...form });
-        //     const res = await axios.post<RouteResult[]>('/api/queryRoute', {
-        //         fromWhere: form.fromWhere,
-        //         toWhere: form.toWhere,
-        //         type: form.type
-        //     })
+        try {
+            console.log({ ...form });
+            await trafficStore.submitQuery({ ...form })
 
-        //     TableData.value = res.data // 储存后端返回信息
-        //     console.log('查询成功')
-        //     console.log(TableData.value);
-        // } catch (e) {
-        //     console.error('error:', e)
-        // }
+            // TableData.value = res.data // 储存后端返回信息
+            // console.log('查询成功')
+            // console.log(TableData.value)
+        } catch (e) {
+            console.error('error:', e)
+        }
 
-        console.log('表单内容:', { ...form })
-
-        TableData.value = mockQueryRoute(form.fromWhere, form.toWhere, form.type)
-        console.log(TableData.value)
+        // TableData.value = mockQueryRoute(form.fromWhere, form.toWhere, form.type)
+        // console.log(TableData.value)
     }
 
 
@@ -144,4 +140,4 @@
 
 
     }
-</style>
+</style>    
