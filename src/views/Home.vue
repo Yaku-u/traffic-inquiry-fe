@@ -3,14 +3,13 @@
         <Menu />
         <div class="main">
             <div class="left">
-                <QueryForm class="form"/>
-                <ResultForm class="form"/>
+                <QueryForm class="form" :cities="cities" @submit="handleQuery" />
+                <ResultForm class="form" :tableData="routes" />
             </div>
             <div class="right">
-                <TrafficGraph />
+                <TrafficGraph :cities="cities" :routes="allRoutes" :highlightRoutes="routes" />
             </div>
         </div>
-        <div class="footer"></div>
     </div>
 </template>
 
@@ -19,6 +18,44 @@
     import QueryForm from '../components/QueryForm.vue'
     import ResultForm from '../components/ResultForm.vue'
     import TrafficGraph from '../components/TrafficGraph.vue'
+    import { ref, onMounted } from 'vue'
+    import { getAllCities, getAllRoutes, getFastestPath, getCheapestPath, getLessTransferPath } from '../api/traffic';
+
+    const cities = ref<any[]>([])
+    const allRoutes = ref<any[]>([])
+    const routes = ref<any[]>([])
+
+    onMounted(async () => {
+        cities.value = (await getAllCities())
+        console.log(JSON.stringify(cities.value))
+        
+        allRoutes.value = (await getAllRoutes())
+        console.log(JSON.stringify(allRoutes.value))
+
+    })
+
+    const handleQuery = async (payload: {
+        from: string
+        to: string
+        strategy: "Fastest" | "Cheapest" | "LessTransfer"
+    }) => {
+        let res
+
+        if (payload.strategy === "Fastest") {
+            res = await getFastestPath(payload.from, payload.to)
+        }
+        else if (payload.strategy === "Cheapest") {
+            res = await getCheapestPath(payload.from, payload.to)
+        }
+        else {
+            res = await getLessTransferPath(payload.from, payload.to)
+        }
+        console.log(JSON.stringify(res))
+        routes.value = res.data
+    }
+
+
+
 </script>
 
 <style lang="less" scoped>

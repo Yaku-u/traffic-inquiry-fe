@@ -27,6 +27,7 @@ export function updateCity(data: {
     return request.post('/updateCity', data)
 }
 
+// 获取所有路线
 export function getAllRoutes() {
     return request.get('/getAllRoutes').then(res => res.data)
 }
