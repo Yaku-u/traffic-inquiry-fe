@@ -2,8 +2,8 @@
     <div class="main">
         <el-table :data="tableData" style="max-width: 650px">
             <el-table-column label="班次" prop="num" />
-            <el-table-column label="起始城市" prop="from" />
-            <el-table-column label="目的城市" prop="to" />
+            <el-table-column label="起始城市" prop="fromName" />
+            <el-table-column label="目的城市" prop="toName" />
             <el-table-column label="出发时间" prop="startTime" />
             <el-table-column label="到达时间" prop="endTime" />
             <el-table-column label="费用" prop="price" />

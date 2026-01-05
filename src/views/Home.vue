@@ -4,7 +4,7 @@
         <div class="main">
             <div class="left">
                 <QueryForm class="form" :cities="cities" @submit="handleQuery" />
-                <ResultForm class="form" :tableData="routes" />
+                <ResultForm class="form" :tableData="routes" :showDelete="false" />
             </div>
             <div class="right">
                 <TrafficGraph :cities="cities" :routes="allRoutes" :highlightRoutes="routes" />
@@ -20,17 +20,23 @@
     import TrafficGraph from '../components/TrafficGraph.vue'
     import { ref, onMounted } from 'vue'
     import { getAllCities, getAllRoutes, getFastestPath, getCheapestPath, getLessTransferPath } from '../api/traffic';
-
     const cities = ref<any[]>([])
     const allRoutes = ref<any[]>([])
     const routes = ref<any[]>([])
+    const cityMap = ref<Record<number, string>>({})
 
     onMounted(async () => {
         cities.value = (await getAllCities())
-        console.log(JSON.stringify(cities.value))
-        
+        // console.log(JSON.stringify(cities.value))
+
+        const map: Record<number, string> = {}
+        cities.value.forEach((c: any) => {
+            map[c.id] = c.name
+        })
+        cityMap.value = map
+
         allRoutes.value = (await getAllRoutes())
-        console.log(JSON.stringify(allRoutes.value))
+        // console.log(JSON.stringify(allRoutes.value))
 
     })
 
@@ -50,8 +56,12 @@
         else {
             res = await getLessTransferPath(payload.from, payload.to)
         }
-        console.log(JSON.stringify(res))
-        routes.value = res.data
+        routes.value = res.path.map((item: any) => ({
+            ...item,
+            fromName: cityMap.value[item.from],
+            toName: cityMap.value[item.to]
+        }))
+        console.log(JSON.stringify(routes.value))
     }
 
 
