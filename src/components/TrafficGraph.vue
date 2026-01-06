@@ -9,7 +9,7 @@
     const props = defineProps<{
         cities: any[]
         routes: any[]
-        highlightRoutes: any[] 
+        highlightRoutes: any[]
     }>()
 
     const chartRef = ref<HTMLDivElement | null>(null)
@@ -31,10 +31,11 @@
     const render = () => {
         if (!chart) return
 
-        
+
         const nodes = props.cities.map(c => ({
             id: String(c.id),
             name: c.name,
+
             symbolSize: 60,
             itemStyle: {
                 color: "#409EFF"
@@ -44,25 +45,30 @@
             }
         }))
 
-        
+
         const normalLinks = props.routes.map(r => ({
             source: String(r.from),
             target: String(r.to),
+            // label: {
+            //     show: true
+            // },
             lineStyle: {
                 color: "#ccc",
-                width: 1,
-                opacity: 0.6
+                width: 2,
+                opacity: 0.7,
+                curveness: 0.2
             }
         }))
 
-        
+
         const highlightLinks = props.highlightRoutes.map(r => ({
             source: String(r.from),
             target: String(r.to),
             lineStyle: {
                 color: "#777",
                 width: 2.5,
-                opacity: 1
+                opacity: 1,
+                curveness: 0.2
             }
         }))
 
@@ -73,13 +79,16 @@
                     type: "graph",
                     layout: "force",
                     roam: true,
+                    edgeSymbol: ['circle', 'arrow'],
+                    edgeSymbolSize: [4, 8],
 
                     data: nodes,
                     links: [...normalLinks, ...highlightLinks],
 
                     force: {
-                        repulsion: 500,
-                        edgeLength: [80, 160]
+                        repulsion: 1000,
+                        edgeLength: [150, 260],
+                        friction: 0.6
                     },
 
                     emphasis: {

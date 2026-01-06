@@ -1,6 +1,6 @@
 <template>
     <div class="main">
-        <el-table :data="tableData" style="max-width: 650px">
+        <el-table :data="tableData" style="max-width: 650px" height="260">
             <el-table-column label="班次" prop="num" />
             <el-table-column label="起始城市" prop="fromName" />
             <el-table-column label="目的城市" prop="toName" />

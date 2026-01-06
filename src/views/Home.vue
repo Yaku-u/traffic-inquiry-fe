@@ -43,7 +43,7 @@
     const handleQuery = async (payload: {
         from: string
         to: string
-        strategy: "Fastest" | "Cheapest" | "LessTransfer"
+        strategy: "Fastest" | "Cheapest" | "LessTransfer" | null
     }) => {
         let res
 

@@ -23,8 +23,9 @@
 
             <el-form-item>
                 <el-button type="primary" @click="submit" class="create-button">
-                    Create
+                    Search
                 </el-button>
+                <el-button @click="reset">Reset</el-button>
             </el-form-item>
         </el-form>
     </div>
@@ -42,16 +43,16 @@
         (e: 'submit', payload: {
             from: string;
             to: string;
-            strategy: 'Fastest' | 'Cheapest' | 'LessTransfer'
+            strategy: 'Fastest' | 'Cheapest' | 'LessTransfer' | null
         }): void
     }>()
 
     const from = ref("")
     const to = ref("")
-    const strategy = ref<"Fastest" | "Cheapest" | "LessTransfer">("Fastest")
+    const strategy = ref<"Fastest" | "Cheapest" | "LessTransfer" | null>(null)
 
     const submit = () => {
-        if (!from.value || !to.value) {
+        if (!from.value || !to.value || strategy.value === null) {
             ElMessage.error("请填写完整信息")
             return
         }
@@ -65,6 +66,12 @@
             to: to.value,
             strategy: strategy.value,
         })
+    }
+
+    const reset = () => {
+        from.value = ""
+        to.value = ""
+        strategy.value = null
     }
 
 

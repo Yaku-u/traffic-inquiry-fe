@@ -1,6 +1,7 @@
 <template>
     <div class="menuContainer">
-        <div class="title">全国交通查询</div>
+        <div class="title" v-if="route.name === 'Home'">全国交通查询</div>
+        <div class="title" v-if="route.name === 'Admin'">交通管理系统</div>
         <div class="logo">
             <a href="https://github.com/Yaku-u/traffic-inquiry-fe" target="_blank">
                 <svg width="30px" height="30px" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 98 97">
@@ -13,6 +14,9 @@
 </template>
 
 <script setup>
+    import { useRoute } from 'vue-router'
+
+    const route = useRoute()
 
 </script>
 
