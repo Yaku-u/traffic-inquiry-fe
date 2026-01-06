@@ -4,7 +4,7 @@
         <div class="main">
             <div class="left">
                 <QueryForm class="form" :cities="cities" @submit="handleQuery" />
-                <ResultForm class="form" :tableData="routes" :showDelete="false" />
+                <ResultForm class="form" :tableData="routes"/>
             </div>
             <div class="right">
                 <TrafficGraph :cities="cities" :routes="allRoutes" :highlightRoutes="routes" />
