@@ -4,7 +4,7 @@
         <div class="main">
             <div class="left">
                 <ManageForm :cities="cities" :routes="routes" @add-city="AddCity" @update-city="UpdateCity"
-                    @add-route="AddRoute" @updata-route="UpdateRoute" />
+                    @add-route="AddRoute" @update-route="UpdateRoute" />
             </div>
             <div class="right">
                 <DataTable :cities="cities" :routes="routes" @delete-city="DeleteCity" @delete-route="DeleteRoute" />
@@ -15,7 +15,7 @@
 </template>
 
 <script lang="ts" setup>
-    import { ref, onMounted } from 'vue'
+    import { ref, onMounted, TrackOpTypes } from 'vue'
     import Menu from '../components/menu.vue'
     import ManageForm from '../components/ManageForm.vue'
     import DataTable from '../components/DataTable.vue'
@@ -24,10 +24,7 @@
     const cities = ref<any[]>([])
     const routes = ref<any[]>([])
 
-    onMounted(async () => {
-        cities.value = (await getAllCities())
-        console.log(JSON.stringify(cities.value))
-        
+    const getRoutes = async() => {
         const routeRes = (await getAllRoutes())
         const cityMap = new Map<number, string>()
         cities.value.forEach(c => {
@@ -39,42 +36,79 @@
             fromName: cityMap.get(item.from),
             toName: cityMap.get(item.to)
         }))
-    })
+        console.log(JSON.stringify(routes.value))
+    }
 
+
+    const fetchAllData = async () => {
+        cities.value = (await getAllCities())
+        console.log(JSON.stringify(cities.value))
+        getRoutes()
+    }
+
+    onMounted(fetchAllData)
 
 
     const AddCity = async (city: any) => {
-        const res = await addCity(city)
-        cities.value.push(res)
+        try{
+            const req = await addCity(city)
+            console.log(JSON.stringify(req))
+
+        }catch(e){
+            console.error(e)
+        }
+        getAllCities()
+
     }
 
-    const UpdateCity = async (payload: any) => {
-        await updateCity(payload)
-        const c = cities.value.find(c => c.id === payload.id)
-        if (c) Object.assign(c, payload)
+    const UpdateCity = async (city: any) => {
+        try{
+            const req = await updateCity(city)
+            console.log(JSON.stringify(req))
+        }catch(e){
+            console.error(e)
+        }
+        getAllCities()
     }
 
-    const DeleteCity = async (index: number) => {
-        const city = cities.value[index]
-        await deleteCity(city.id)
-        cities.value.splice(index, 1)
+    const DeleteCity = async (name: string) => {
+        cities.value = cities.value.filter(c => c.name !== name)
+        try {
+            await deleteCity(name)
+        } catch (e) {
+            console.error(e)
+        }
+        getAllCities()
     }
 
     const AddRoute = async (route: any) => {
-        const res = await addRoute(route)
-        routes.value.push(res)
+        try{
+            const req = await addRoute(route)
+            console.log(JSON.stringify(req))
+        }catch(e){
+            console.error(e)
+        }
+        getRoutes()
     }
 
-    const UpdateRoute = async (payload: any) => {
-        await updateRoute(payload)
-        const r = routes.value.find(r => r.id === payload.id)
-        if (r) Object.assign(r, payload)
+    const UpdateRoute = async (route: any) => {
+        try{
+            const req = await updateRoute(route)
+            console.log(JSON.stringify(req))
+        }catch(e){
+            console.error(e)
+        }
+        getRoutes()
     }
 
-    const DeleteRoute = async (index: number) => {
-        const route = routes.value[index]
-        await deleteRoute(route.id)
-        routes.value.splice(index, 1)
+    const DeleteRoute = async (id: number) => {
+        routes.value = routes.value.filter(r => r.id !== id)
+        try{
+            await deleteRoute(id)
+        }catch(e){
+            console.error(e)
+        }
+        getRoutes()
     }
 
 

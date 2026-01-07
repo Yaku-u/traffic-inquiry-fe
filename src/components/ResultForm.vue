@@ -7,13 +7,6 @@
             <el-table-column label="出发时间" prop="startTime" />
             <el-table-column label="到达时间" prop="endTime" />
             <el-table-column label="费用" prop="price" />
-            <!-- <el-table-column align="right" v-if="showDelete">
-                <template #default="scope">
-                    <el-button size="small" type="danger" @click="$emit('delete-row', scope.$index)">
-                        Delete
-                    </el-button>
-                </template>
-            </el-table-column> -->
         </el-table>
     </div>
 
