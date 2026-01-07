@@ -2,12 +2,11 @@
     <div class="container">
         <div class="login-box">
             <div class="title">全国交通查询</div>
-        
             <div class="input">
-                <el-input v-model="username" style="width: 240px; height: 40px;" placeholder="username" />
+                <el-input v-model="username" style="width: 240px; height: 40px;" placeholder="username" @keyup.enter="login"/>
             </div>
             <div class="input">
-                <el-input v-model="password" style="width: 240px; height: 40px;" type="password" placeholder="password" show-password />
+                <el-input v-model="password" style="width: 240px; height: 40px;" type="password" placeholder="password" show-password @keyup.enter="login"/>
             </div>
             <div class="button">
                 <el-button type="primary" @click="login">Login</el-button>

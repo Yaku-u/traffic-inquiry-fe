@@ -25,8 +25,8 @@
                     <el-form-item label="新名称" prop="newname">
                         <el-input v-model="updateCityForm.newname" />
                     </el-form-item>
-                    <el-form-item label="新简称" prop="code">
-                        <el-input v-model="updateCityForm.code" />
+                    <el-form-item label="新简称" prop="newcode">
+                        <el-input v-model="updateCityForm.newcode" />
                     </el-form-item>
                     <el-form-item>
                         <el-button type="primary" @click="emit('update-city', updateCityForm)"> Update </el-button>
@@ -126,7 +126,7 @@
     const updateCityForm = reactive({
         name: '',
         newname: '',
-        code: ''
+        newcode: ''
     })
 
     const addRouteForm = reactive({

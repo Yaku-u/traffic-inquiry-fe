@@ -15,7 +15,7 @@
 </template>
 
 <script lang="ts" setup>
-    import { ref, onMounted, TrackOpTypes } from 'vue'
+    import { ref, onMounted } from 'vue'
     import Menu from '../components/menu.vue'
     import ManageForm from '../components/ManageForm.vue'
     import DataTable from '../components/DataTable.vue'
@@ -39,76 +39,73 @@
         console.log(JSON.stringify(routes.value))
     }
 
-
-    const fetchAllData = async () => {
+    const getCities = async() => {
         cities.value = (await getAllCities())
         console.log(JSON.stringify(cities.value))
-        getRoutes()
     }
 
-    onMounted(fetchAllData)
+
+    onMounted(async() => {
+        getCities()
+        getRoutes()
+    })
 
 
     const AddCity = async (city: any) => {
         try{
-            const req = await addCity(city)
-            console.log(JSON.stringify(req))
-
+            await addCity(city)
+            getCities()
         }catch(e){
             console.error(e)
         }
-        getAllCities()
 
     }
 
     const UpdateCity = async (city: any) => {
         try{
-            const req = await updateCity(city)
-            console.log(JSON.stringify(req))
+            await updateCity(city)
+            getCities()
         }catch(e){
             console.error(e)
         }
-        getAllCities()
     }
 
     const DeleteCity = async (name: string) => {
         cities.value = cities.value.filter(c => c.name !== name)
         try {
             await deleteCity(name)
+            getCities()
         } catch (e) {
             console.error(e)
         }
-        getAllCities()
     }
 
     const AddRoute = async (route: any) => {
         try{
-            const req = await addRoute(route)
-            console.log(JSON.stringify(req))
+            await addRoute(route)
+            getRoutes()
         }catch(e){
             console.error(e)
         }
-        getRoutes()
     }
 
     const UpdateRoute = async (route: any) => {
         try{
-            const req = await updateRoute(route)
-            console.log(JSON.stringify(req))
+            await updateRoute(route)
+            getRoutes()
         }catch(e){
             console.error(e)
         }
-        getRoutes()
     }
 
     const DeleteRoute = async (id: number) => {
         routes.value = routes.value.filter(r => r.id !== id)
         try{
             await deleteRoute(id)
+            getRoutes()
         }catch(e){
             console.error(e)
         }
-        getRoutes()
     }
 
 
