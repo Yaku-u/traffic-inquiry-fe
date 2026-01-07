@@ -87,7 +87,7 @@
 
                     force: {
                         repulsion: 1000,
-                        edgeLength: [150, 260],
+                        edgeLength: [120, 230],
                         friction: 0.6
                     },
 

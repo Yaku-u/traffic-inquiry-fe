@@ -44,16 +44,16 @@
                         <el-input v-model="addRouteForm.to" />
                     </el-form-item>
                     <el-form-item label="出发时间" prop="startTime">
-                        <el-input v-model="addRouteForm.startTime" />
+                        <el-input-number v-model="addRouteForm.startTime" :controls="false" align="left" />
                     </el-form-item>
                     <el-form-item label="到达时间" prop="endTime">
-                        <el-input v-model="addRouteForm.endTime" />
+                        <el-input-number v-model="addRouteForm.endTime" :controls="false" align="left" />
                     </el-form-item>
                     <el-form-item label="班次" prop="num">
-                        <el-input v-model="addRouteForm.num" />
+                        <el-input-number v-model="addRouteForm.num" :controls="false" align="left" />
                     </el-form-item>
                     <el-form-item label="费用" prop="price">
-                        <el-input v-model="addRouteForm.price" />
+                        <el-input-number v-model="addRouteForm.price" :controls="false" align="left" />
                     </el-form-item>
                     <el-form-item>
                         <el-button type="primary" @click="emit('add-route', addRouteForm)"> Add </el-button>
@@ -63,9 +63,9 @@
             </el-tab-pane>
 
             <el-tab-pane label="更改路线">
-                <el-form  ref="updateRouteRef" :model="updateRouteForm" label-width="auto" style="max-width: 500px">
+                <el-form ref="updateRouteRef" :model="updateRouteForm" label-width="auto" style="max-width: 500px">
                     <el-form-item label="路线编码" prop="id">
-                        <el-input v-model="updateRouteForm.id" />
+                        <el-input-number v-model="updateRouteForm.id" :controls="false" align="left"/>
                     </el-form-item>
                     <el-form-item label="起始城市" prop="from">
                         <el-input v-model="updateRouteForm.from" />
@@ -74,16 +74,16 @@
                         <el-input v-model="updateRouteForm.to" />
                     </el-form-item>
                     <el-form-item label="出发时间" prop="startTime">
-                        <el-input v-model="updateRouteForm.startTime" />
+                        <el-input-number v-model="updateRouteForm.startTime" :controls="false" align="left"/>
                     </el-form-item>
                     <el-form-item label="到达时间" prop="endTime">
-                        <el-input v-model="updateRouteForm.endTime" />
+                        <el-input-number v-model="updateRouteForm.endTime" :controls="false" align="left"/>
                     </el-form-item>
                     <el-form-item label="班次" prop="num">
-                        <el-input v-model="updateRouteForm.num" />
+                        <el-input-number v-model="updateRouteForm.num" :controls="false" align="left"/>
                     </el-form-item>
                     <el-form-item label="费用" prop="price">
-                        <el-input v-model="updateRouteForm.price" />
+                        <el-input-number v-model="updateRouteForm.price" :controls="false" align="left"/>
                     </el-form-item>
                     <el-form-item>
                         <el-button type="primary" @click="emit('update-route', updateRouteForm)">Add</el-button>
@@ -99,7 +99,7 @@
 
 <script setup lang="ts">
 
-    import { ref, reactive  } from 'vue'
+    import { ref, reactive } from 'vue'
     import type { FormInstance } from 'element-plus'
 
     const addCityRef = ref<FormInstance>()
@@ -132,21 +132,21 @@
     const addRouteForm = reactive({
         from: '',
         to: '',
-        startTime: '',
-        endTime: '',
-        num: '',
-        price: '',
+        startTime: null,
+        endTime: null,
+        num: null,
+        price: null,
         type: 1
     })
 
     const updateRouteForm = reactive({
-        id: '',
+        id: null,
         from: '',
         to: '',
-        startTime: '',
-        endTime: '',
-        num: '',
-        price: '',
+        startTime: null,
+        endTime: null,
+        num: null,
+        price: null,
         type: 1
     })
 
@@ -188,7 +188,6 @@
             // margin: 10px;
             // border: 1px solid #d5d5d5;
 
-
             & .el-tab-pane {
                 height: 100%;
                 display: flex;
@@ -196,17 +195,20 @@
                 justify-content: center;
                 // border: 1px solid #d5d5d5;
 
-
-
-
                 & .el-form-item {
                     padding: 10px;
 
+                    & .el-input-number{
+                        width: 200px;
+                    }
 
                     :last-child {
                         justify-content: center;
                     }
+
+
                 }
+
             }
 
         }
