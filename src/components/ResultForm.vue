@@ -17,7 +17,7 @@
         tableData: any[]
 
     }>()
-    
+
 </script>
 
 
@@ -25,9 +25,9 @@
     .main {
         width: 700px;
         height: 400px;
-        border: 1px solid #d5d5d5;
+        border: var(--border);
         border-radius: 5px;
-        background-color: #fff;
+        background-color: var(--bg-color);
         // background-color: #f4f4f4;
         display: flex;
         align-items: center;
@@ -35,8 +35,10 @@
 
         & .el-table {
             // --el-table-tr-bg-color: #f4f4f4;
-            // --el-table-header-bg-color: #f4f4f4;
             --el-table-row-hover-bg-color: #e8e8e8;
+            --el-table-tr-bg-color: none;
+            --el-table-bg-color: none;
+            --el-table-header-bg-color: none;
         }
     }
 </style>

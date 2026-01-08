@@ -5,6 +5,7 @@ import router from './router'
 import 'element-plus/theme-chalk/el-message.css'
 import 'element-plus/theme-chalk/dark/css-vars.css'
 import * as ElementPlusIconsVue from '@element-plus/icons-vue'
+import './assets/theme.less'
 
 
 

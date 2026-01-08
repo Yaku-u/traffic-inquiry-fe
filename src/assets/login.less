@@ -1,29 +1,39 @@
-@border: 1px solid #d5d5d5;
-
 .container {
     // background-color: #f4f4f4;
-    background-image: linear-gradient(to top, #dfe9f3 0%, white 100%);
+    background-image: var(--bg-image);
     width: 100vw;
     height: 100vh;
     display: flex;
     align-items: center;
-    justify-content: center;
+    // justify-content: space-between;
+    flex-direction: column;
 
-    & .title{
-        font-size: 30px;
-        padding: 25px;
+
+    & .main {
+        display: flex;
+        align-items: center;
+        justify-content: space-around;
+        height: 90%;
+
     }
+
 
     & .login-box {
         width: 500px;
         height: 600px;
-        background-color: #fff;
-        border: @border;
+        background-color: var(--bg-color);
+        border: var(--border);
         border-radius: 5px;
         display: flex;
         align-items: center;
         justify-content: center;
         flex-direction: column;
+
+
+        & .title {
+            font-size: 30px;
+            padding: 25px;
+        }
 
         & .input {
             margin: 30px;

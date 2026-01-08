@@ -86,7 +86,7 @@
                         <el-input-number v-model="updateRouteForm.price" :controls="false" align="left"/>
                     </el-form-item>
                     <el-form-item>
-                        <el-button type="primary" @click="emit('update-route', updateRouteForm)">Add</el-button>
+                        <el-button type="primary" @click="emit('update-route', updateRouteForm)"> Update </el-button>
                         <el-button @click="cancelUpdateRoute"> Cancel </el-button>
                     </el-form-item>
                 </el-form>
@@ -172,7 +172,7 @@
 <style scoped lang="less">
     .main {
         border-radius: 5px;
-        background-color: #fff;
+        background-color: var(--bg-color);
         width: 90%;
         display: flex;
         align-items: center;

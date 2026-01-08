@@ -54,7 +54,7 @@
 <style scoped lang="less">
     .main {
         border-radius: 5px;
-        background-color: #fff;
+        background-color: var(--bg-color);
         width: 100%;
         display: flex;
         align-items: center;
@@ -65,8 +65,11 @@
             height: 95%;
 
 
-            & .el-table{
+            & .el-table {
                 width: 95%;
+                --el-table-tr-bg-color: none;
+                --el-table-bg-color: none;
+                --el-table-header-bg-color: none;
             }
         }
 

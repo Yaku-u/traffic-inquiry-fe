@@ -82,10 +82,10 @@
     .main {
         width: 700px;
         height: 400px;
-        border: 1px solid #d5d5d5;
+        border: var(--border);
         border-radius: 5px;
         // background-color: #f9f9f9;
-        background-color: #fff;
+        background-color: var(--bg-color);
         display: flex;
         align-items: center;
         justify-content: center;

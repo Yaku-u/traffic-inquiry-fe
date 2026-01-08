@@ -1,0 +1,40 @@
+@background: linear-gradient(to top, #dfe9f3 0%, white 100%);
+
+:root{
+    --bg-image: @background;
+    --bg-color: #fff;
+    --bg-color-menu: #fff;
+    --border: 1px solid #d5d5d5;
+    --shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+    --fill: #141414;
+}
+
+
+@media (prefers-color-scheme: dark){
+    :root{
+        --bg-image: #141414;
+        --bg-color: #262727;
+        --bg-color-menu: #141414;
+        --border: 1px solid #4c4d4f;
+        --shadow: 0 0 5px rgba(236, 236, 236, 0.5);
+        --fill: #f3f3f3;
+    }    
+}
+
+:root[data-theme='light']{
+    --bg-image: @background;
+    --bg-color: #fff;
+    --bg-color-menu: #fff;
+    --border: 1px solid #d5d5d5;
+    --shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+    --fill: #141414;
+}
+
+:root[data-theme='dark']{
+    --bg-image: #141414;
+        --bg-color: #262727;
+        --bg-color-menu: #141414;
+        --border: 1px solid #4c4d4f;
+        --shadow: 0 0 5px rgba(236, 236, 236, 0.5);
+        --fill: #f3f3f3;
+}

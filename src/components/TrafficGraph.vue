@@ -104,9 +104,9 @@
     .chart {
         width: 800px;
         height: 800px;
-        border: 1px solid #d5d5d5;
+        border: var(--border);
         border-radius: 5px;
         // background-color: #f4f4f4;
-        background-color: #fff;
+        background-color: var(--bg-color);
     }
 </style>
