@@ -14,8 +14,8 @@ export function addCity(data: {
 }
 
 // 删除城市
-export function deleteCity(name: string) {
-    return request.post('/deleteCity', { name })
+export function deleteCity(id: number) {
+    return request.post('/deleteCity', { id })
 }
 
 // 修改城市

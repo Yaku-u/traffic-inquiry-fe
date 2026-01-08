@@ -70,10 +70,10 @@
         }
     }
 
-    const DeleteCity = async (name: string) => {
-        cities.value = cities.value.filter(c => c.name !== name)
+    const DeleteCity = async (id: number) => {
+        cities.value = cities.value.filter(c => c.id !== id)
         try {
-            await deleteCity(name)
+            await deleteCity(id)
             getCities()
         } catch (e) {
             console.error(e)

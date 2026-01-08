@@ -8,7 +8,7 @@
                     <el-table-column label="城市简称" prop="code" />
                     <el-table-column>
                         <template #default="scope">
-                            <el-button size="small" type="danger" @click="$emit('delete-city', scope.row.name)">
+                            <el-button size="small" type="danger" @click="$emit('delete-city', scope.row.id)">
                                 Delete
                             </el-button>
                         </template>
