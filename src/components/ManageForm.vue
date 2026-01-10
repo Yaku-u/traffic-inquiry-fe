@@ -3,7 +3,7 @@
         <el-tabs class="tabs" tab-position="left">
 
             <el-tab-pane label="添加城市">
-                <el-form ref="addCityRef" :model="addCityForm" label-width="auto" style="max-width: 500px">
+                <el-form ref="addCityRef" :model="addCityForm" label-width="auto" style="max-width: 500px" :rules="cityRules">
                     <el-form-item label="城市名称" prop="name">
                         <el-input v-model="addCityForm.name" />
                     </el-form-item>
@@ -11,14 +11,14 @@
                         <el-input v-model="addCityForm.code" />
                     </el-form-item>
                     <el-form-item>
-                        <el-button type="primary" @click="emit('add-city', addCityForm)"> Add </el-button>
+                        <el-button type="primary" @click="submitAddCity"> Add </el-button>
                         <el-button @click="cancelAddCity">Cancel</el-button>
                     </el-form-item>
                 </el-form>
             </el-tab-pane>
 
             <el-tab-pane label="更改城市">
-                <el-form ref="updateCityRef" :model="updateCityForm" label-width="auto" style="max-width: 500px">
+                <el-form ref="updateCityRef" :model="updateCityForm" label-width="auto" style="max-width: 500px" :rules="updateCityRules">
                     <el-form-item label="原名称" prop="name">
                         <el-input v-model="updateCityForm.name" />
                     </el-form-item>
@@ -29,14 +29,14 @@
                         <el-input v-model="updateCityForm.newcode" />
                     </el-form-item>
                     <el-form-item>
-                        <el-button type="primary" @click="emit('update-city', updateCityForm)"> Update </el-button>
+                        <el-button type="primary" @click="submitUpdateCity"> Update </el-button>
                         <el-button @click="cancelUpdateCity"> Cancel </el-button>
                     </el-form-item>
                 </el-form>
             </el-tab-pane>
 
             <el-tab-pane label="添加路线">
-                <el-form ref="addRouteRef" :model="addRouteForm" label-width="auto" style="max-width: 500px">
+                <el-form ref="addRouteRef" :model="addRouteForm" label-width="auto" style="max-width: 500px" :rules="routeRules">
                     <el-form-item label="起始城市" prop="from">
                         <el-input v-model="addRouteForm.from" />
                     </el-form-item>
@@ -56,16 +56,16 @@
                         <el-input-number v-model="addRouteForm.price" :controls="false" align="left" />
                     </el-form-item>
                     <el-form-item>
-                        <el-button type="primary" @click="emit('add-route', addRouteForm)"> Add </el-button>
+                        <el-button type="primary" @click="submitAddRoute"> Add </el-button>
                         <el-button @click="cancelAddRoute"> Cancel </el-button>
                     </el-form-item>
                 </el-form>
             </el-tab-pane>
 
             <el-tab-pane label="更改路线">
-                <el-form ref="updateRouteRef" :model="updateRouteForm" label-width="auto" style="max-width: 500px">
+                <el-form ref="updateRouteRef" :model="updateRouteForm" label-width="auto" style="max-width: 500px" :rules="updateRouteRules">
                     <el-form-item label="路线编码" prop="id">
-                        <el-input-number v-model="updateRouteForm.id" :controls="false" align="left"/>
+                        <el-input-number v-model="updateRouteForm.id" :controls="false" align="left" />
                     </el-form-item>
                     <el-form-item label="起始城市" prop="from">
                         <el-input v-model="updateRouteForm.from" />
@@ -74,19 +74,19 @@
                         <el-input v-model="updateRouteForm.to" />
                     </el-form-item>
                     <el-form-item label="出发时间" prop="startTime">
-                        <el-input-number v-model="updateRouteForm.startTime" :controls="false" align="left"/>
+                        <el-input-number v-model="updateRouteForm.startTime" :controls="false" align="left" />
                     </el-form-item>
                     <el-form-item label="到达时间" prop="endTime">
-                        <el-input-number v-model="updateRouteForm.endTime" :controls="false" align="left"/>
+                        <el-input-number v-model="updateRouteForm.endTime" :controls="false" align="left" />
                     </el-form-item>
                     <el-form-item label="班次" prop="num">
-                        <el-input-number v-model="updateRouteForm.num" :controls="false" align="left"/>
+                        <el-input-number v-model="updateRouteForm.num" :controls="false" align="left" />
                     </el-form-item>
                     <el-form-item label="费用" prop="price">
-                        <el-input-number v-model="updateRouteForm.price" :controls="false" align="left"/>
+                        <el-input-number v-model="updateRouteForm.price" :controls="false" align="left" />
                     </el-form-item>
                     <el-form-item>
-                        <el-button type="primary" @click="emit('update-route', updateRouteForm)"> Update </el-button>
+                        <el-button type="primary" @click="submitUpdateRoute"> Update </el-button>
                         <el-button @click="cancelUpdateRoute"> Cancel </el-button>
                     </el-form-item>
                 </el-form>
@@ -98,7 +98,7 @@
 </template>
 
 <script setup lang="ts">
-
+    import { ElMessage } from 'element-plus'
     import { ref, reactive } from 'vue'
     import type { FormInstance } from 'element-plus'
 
@@ -166,6 +166,73 @@
         updateRouteRef.value?.resetFields()
     }
 
+    const cityRules = {
+        name: [{ required: true, message: '', trigger: 'change' }],
+        code: [{ required: true, message: '', trigger: 'change' }]
+    }
+
+    const updateCityRules = {
+        name: [{ required: true, message: '', trigger: 'change' }],
+        newname: [{ required: true, message: '', trigger: 'change' }],
+        newcode: [{ required: true, message: '', trigger: 'change' }]
+    }
+
+    const routeRules = {
+        from: [{ required: true, message: '', trigger: 'change' }],
+        to: [{ required: true, message: '', trigger: 'change' }],
+        startTime: [{ required: true, message: '', trigger: 'change' }],
+        endTime: [{ required: true, message: '', trigger: 'change' }],
+        num: [{ required: true, message: '', trigger: 'change' }],
+        price: [{ required: true, message: '', trigger: 'change' }]
+    }
+
+    const updateRouteRules = {
+        id: [{ required: true, message: '', trigger: 'change' }],
+        ...routeRules
+    }
+
+    const submitAddCity = () => {
+        addCityRef.value?.validate((valid) => {
+            if (!valid) {
+                ElMessage.error('请填写完整信息')
+                return
+            }
+            emit('add-city', addCityForm)
+        })
+    }
+
+    const submitUpdateCity = () => {
+        updateCityRef.value?.validate((valid) => {
+            if (!valid) {
+                ElMessage.error('请填写完整信息')
+                return
+            }
+            emit('update-city', updateCityForm)
+        })
+    }
+
+    const submitAddRoute = () => {
+        addRouteRef.value?.validate((valid) => {
+            if (!valid) {
+                ElMessage.error('请填写完整信息')
+                return
+            }
+            emit('add-route', addRouteForm)
+        })
+    }
+
+    const submitUpdateRoute = () => {
+        updateRouteRef.value?.validate((valid) => {
+            if (!valid) {
+                ElMessage.error('请填写完整信息')
+                return
+            }
+            emit('update-route', updateRouteForm)
+        })
+    }
+
+
+
 
 </script>
 
@@ -198,7 +265,7 @@
                 & .el-form-item {
                     padding: 10px;
 
-                    & .el-input-number{
+                    & .el-input-number {
                         width: 200px;
                     }
 
