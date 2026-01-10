@@ -20,6 +20,7 @@
     import ManageForm from '../components/ManageForm.vue'
     import DataTable from '../components/DataTable.vue'
     import { getAllCities, getAllRoutes, addCity, updateCity, deleteCity, addRoute, updateRoute, deleteRoute } from '../api/traffic'
+    import { ElMessage } from 'element-plus'
 
     const cities = ref<any[]>([])
     const routes = ref<any[]>([])
@@ -53,7 +54,8 @@
 
     const AddCity = async (city: any) => {
         try{
-            await addCity(city)
+            const req = await addCity(city)
+            if(req.data.error===0) ElMessage.error("城市已存在")
             getCities()
         }catch(e){
             console.error(e)

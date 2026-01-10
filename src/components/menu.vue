@@ -75,11 +75,17 @@
             display: flex;
             align-items: center;
 
+            :hover {
+                fill: #409EFF;
+                transition: all .2s;
+            }
+
 
             & .el-switch {
                 --el-switch-off-color: #f2f2f2;
                 --el-switch-on-color: #2c2c2c;
                 padding: 20px;
+
 
             }
 
@@ -99,6 +105,10 @@
             padding-left: 30px;
         }
 
+    }
+
+    :deep(.el-switch__core):hover{
+        border: #409EFF solid 1px;
     }
 
     :deep(.theme-switch .el-switch__action svg) {

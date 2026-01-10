@@ -30,6 +30,8 @@ declare module 'vue' {
     ElTableColumn: typeof import('element-plus/es')['ElTableColumn']
     ElTabPane: typeof import('element-plus/es')['ElTabPane']
     ElTabs: typeof import('element-plus/es')['ElTabs']
+    ElTimePicker: typeof import('element-plus/es')['ElTimePicker']
+    ElTimer: typeof import('element-plus/es')['ElTimer']
     ManageForm: typeof import('./src/components/ManageForm.vue')['default']
     Menu: typeof import('./src/components/menu.vue')['default']
     PathQuery: typeof import('./src/components/PathQuery.vue')['default']

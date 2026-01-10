@@ -4,7 +4,7 @@
         <div class="main">
             <div class="left">
                 <QueryForm class="form" :cities="cities" @submit="handleQuery" />
-                <ResultForm class="form" :tableData="routes"/>
+                <ResultForm class="form" :tableData="routes" />
             </div>
             <div class="right">
                 <TrafficGraph :cities="cities" :routes="allRoutes" :highlightRoutes="routes" />
@@ -19,7 +19,8 @@
     import ResultForm from '../components/ResultForm.vue'
     import TrafficGraph from '../components/TrafficGraph.vue'
     import { ref, onMounted } from 'vue'
-    import { getAllCities, getAllRoutes, getFastestPath, getCheapestPath, getLessTransferPath } from '../api/traffic';
+    import { getAllCities, getAllRoutes, getFastestPath, getCheapestPath, getLessTransferPath } from '../api/traffic'
+    import { ElMessage } from 'element-plus'
     const cities = ref<any[]>([])
     const allRoutes = ref<any[]>([])
     const routes = ref<any[]>([])
@@ -62,6 +63,9 @@
             toName: cityMap.value[item.to]
         }))
         console.log(JSON.stringify(routes.value))
+        if (routes.value.length === 0) {
+            ElMessage.error("没有对应路线")
+        }
     }
 
 

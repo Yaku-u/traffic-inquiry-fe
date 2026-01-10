@@ -44,7 +44,10 @@
                 show: true
             }
         }))
-
+        
+        const isDark = () => {
+            return document.documentElement.classList.contains('dark')
+        }
 
         const normalLinks = props.routes.map(r => ({
             source: String(r.from),
@@ -53,7 +56,7 @@
             //     show: true
             // },
             lineStyle: {
-                color: "#ccc",
+                color: isDark()? '#777': '#ccc',
                 width: 2,
                 opacity: 0.7,
                 curveness: 0.2
@@ -61,11 +64,12 @@
         }))
 
 
+
         const highlightLinks = props.highlightRoutes.map(r => ({
             source: String(r.from),
             target: String(r.to),
             lineStyle: {
-                color: "#777",
+                color: isDark()? '#ddd': '#777',
                 width: 2.5,
                 opacity: 1,
                 curveness: 0.2

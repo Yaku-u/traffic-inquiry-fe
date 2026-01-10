@@ -3,14 +3,15 @@
         <el-tabs class="tabs" tab-position="left">
 
             <el-tab-pane label="添加城市">
-                <el-form ref="addCityRef" :model="addCityForm" label-width="auto" style="max-width: 500px" :rules="cityRules">
+                <el-form ref="addCityRef" :model="addCityForm" label-width="auto" style="max-width: 500px"
+                    :rules="cityRules">
                     <el-form-item label="城市名称" prop="name">
                         <el-input v-model="addCityForm.name" />
                     </el-form-item>
                     <el-form-item label="城市简称" prop="code">
                         <el-input v-model="addCityForm.code" />
                     </el-form-item>
-                    <el-form-item>
+                    <el-form-item class="btn">
                         <el-button type="primary" @click="submitAddCity"> Add </el-button>
                         <el-button @click="cancelAddCity">Cancel</el-button>
                     </el-form-item>
@@ -18,7 +19,8 @@
             </el-tab-pane>
 
             <el-tab-pane label="更改城市">
-                <el-form ref="updateCityRef" :model="updateCityForm" label-width="auto" style="max-width: 500px" :rules="updateCityRules">
+                <el-form ref="updateCityRef" :model="updateCityForm" label-width="auto" style="max-width: 500px"
+                    :rules="updateCityRules">
                     <el-form-item label="原名称" prop="name">
                         <el-input v-model="updateCityForm.name" />
                     </el-form-item>
@@ -28,7 +30,7 @@
                     <el-form-item label="新简称" prop="newcode">
                         <el-input v-model="updateCityForm.newcode" />
                     </el-form-item>
-                    <el-form-item>
+                    <el-form-item class="btn">
                         <el-button type="primary" @click="submitUpdateCity"> Update </el-button>
                         <el-button @click="cancelUpdateCity"> Cancel </el-button>
                     </el-form-item>
@@ -36,7 +38,8 @@
             </el-tab-pane>
 
             <el-tab-pane label="添加路线">
-                <el-form ref="addRouteRef" :model="addRouteForm" label-width="auto" style="max-width: 500px" :rules="routeRules">
+                <el-form ref="addRouteRef" :model="addRouteForm" label-width="auto" style="max-width: 500px"
+                    :rules="routeRules">
                     <el-form-item label="起始城市" prop="from">
                         <el-input v-model="addRouteForm.from" />
                     </el-form-item>
@@ -44,18 +47,18 @@
                         <el-input v-model="addRouteForm.to" />
                     </el-form-item>
                     <el-form-item label="出发时间" prop="startTime">
-                        <el-input-number v-model="addRouteForm.startTime" :controls="false" align="left" />
+                        <el-time-picker v-model="addRouteForm.startTime" value-format="HH:mm" format="HH:mm" />
                     </el-form-item>
                     <el-form-item label="到达时间" prop="endTime">
-                        <el-input-number v-model="addRouteForm.endTime" :controls="false" align="left" />
+                        <el-time-picker v-model="addRouteForm.endTime" value-format="HH:mm" format="HH:mm" />
                     </el-form-item>
                     <el-form-item label="班次" prop="num">
-                        <el-input-number v-model="addRouteForm.num" :controls="false" align="left" />
+                        <el-input v-model="addRouteForm.num" />
                     </el-form-item>
                     <el-form-item label="费用" prop="price">
                         <el-input-number v-model="addRouteForm.price" :controls="false" align="left" />
                     </el-form-item>
-                    <el-form-item>
+                    <el-form-item class="btn">
                         <el-button type="primary" @click="submitAddRoute"> Add </el-button>
                         <el-button @click="cancelAddRoute"> Cancel </el-button>
                     </el-form-item>
@@ -63,7 +66,8 @@
             </el-tab-pane>
 
             <el-tab-pane label="更改路线">
-                <el-form ref="updateRouteRef" :model="updateRouteForm" label-width="auto" style="max-width: 500px" :rules="updateRouteRules">
+                <el-form ref="updateRouteRef" :model="updateRouteForm" label-width="auto" style="max-width: 500px"
+                    :rules="updateRouteRules">
                     <el-form-item label="路线编码" prop="id">
                         <el-input-number v-model="updateRouteForm.id" :controls="false" align="left" />
                     </el-form-item>
@@ -74,18 +78,18 @@
                         <el-input v-model="updateRouteForm.to" />
                     </el-form-item>
                     <el-form-item label="出发时间" prop="startTime">
-                        <el-input-number v-model="updateRouteForm.startTime" :controls="false" align="left" />
+                        <el-time-picker v-model="updateRouteForm.startTime" value-format="HH:mm" format="HH:mm" />
                     </el-form-item>
                     <el-form-item label="到达时间" prop="endTime">
-                        <el-input-number v-model="updateRouteForm.endTime" :controls="false" align="left" />
+                        <el-time-picker v-model="updateRouteForm.endTime" value-format="HH:mm" format="HH:mm" />
                     </el-form-item>
                     <el-form-item label="班次" prop="num">
-                        <el-input-number v-model="updateRouteForm.num" :controls="false" align="left" />
+                        <el-input v-model="updateRouteForm.num" />
                     </el-form-item>
                     <el-form-item label="费用" prop="price">
                         <el-input-number v-model="updateRouteForm.price" :controls="false" align="left" />
                     </el-form-item>
-                    <el-form-item>
+                    <el-form-item class="btn">
                         <el-button type="primary" @click="submitUpdateRoute"> Update </el-button>
                         <el-button @click="cancelUpdateRoute"> Cancel </el-button>
                     </el-form-item>
@@ -132,9 +136,9 @@
     const addRouteForm = reactive({
         from: '',
         to: '',
-        startTime: null,
-        endTime: null,
-        num: null,
+        startTime: '',
+        endTime: '',
+        num: '',
         price: null,
         type: 1
     })
@@ -143,9 +147,9 @@
         id: null,
         from: '',
         to: '',
-        startTime: null,
-        endTime: null,
-        num: null,
+        startTime: '',
+        endTime: '',
+        num: '',
         price: null,
         type: 1
     })
@@ -244,45 +248,28 @@
         display: flex;
         align-items: center;
         justify-content: center;
-        // width: 600px;
-        // height: 570px;
-        // border: 1px solid #d5d5d5;
-        // background-color: #f9f9f9;
 
         & .tabs {
             height: 90%;
             width: 90%;
-            // margin: 10px;
-            // border: 1px solid #d5d5d5;
 
             & .el-tab-pane {
                 height: 100%;
                 display: flex;
                 align-items: center;
                 justify-content: center;
-                // border: 1px solid #d5d5d5;
 
                 & .el-form-item {
-                    padding: 10px;
-
-                    & .el-input-number {
-                        width: 200px;
-                    }
-
-                    :last-child {
-                        justify-content: center;
-                    }
-
-
+                    padding-top: 20px;
                 }
-
             }
-
         }
-
-
-
-
     }
+
+    .el-input-number {
+        width: 220px;
+    }
+
+
 
 </style>

@@ -36,11 +36,11 @@ export function getAllRoutes() {
 export function addRoute(data: {
     from: string
     to: string
-    startTime: number
-    endTime: number
+    startTime: string
+    endTime: string
     num: number
     price: number
-    type: number
+    type: string
 }) {
     return request.post('/addRoute', data)
 }
@@ -55,11 +55,11 @@ export function updateRoute(data: {
     id: number
     from: string
     to: string
-    startTime: number
-    endTime: number
+    startTime: string
+    endTime: string
     num: number
     price: number
-    type: number
+    type: string
 }) {
     return request.post('/updateRoute', data)
 }
