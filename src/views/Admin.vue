@@ -55,7 +55,7 @@
     const AddCity = async (city: any) => {
         try{
             const req = await addCity(city)
-            if(req.data.error===0) ElMessage.error("城市已存在")
+            if(req.data.error === 1) ElMessage.error("城市已存在")
             getCities()
         }catch(e){
             console.error(e)
@@ -65,7 +65,8 @@
 
     const UpdateCity = async (city: any) => {
         try{
-            await updateCity(city)
+            const req = await updateCity(city)
+            if(req.data.error === 1) ElMessage.error("城市已存在")
             getCities()
         }catch(e){
             console.error(e)

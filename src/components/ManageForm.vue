@@ -22,7 +22,9 @@
                 <el-form ref="updateCityRef" :model="updateCityForm" label-width="auto" style="max-width: 500px"
                     :rules="updateCityRules">
                     <el-form-item label="原名称" prop="name">
-                        <el-input v-model="updateCityForm.name" />
+                        <el-select v-model="updateCityForm.name" filterable>
+                            <el-option v-for="c in cities" :key="c.name" :label="c.name" :value="c.name" />
+                        </el-select>
                     </el-form-item>
                     <el-form-item label="新名称" prop="newname">
                         <el-input v-model="updateCityForm.newname" />
@@ -76,7 +78,7 @@
                         <el-input-number v-model="updateRouteForm.id" :controls="false" align="left" />
                     </el-form-item>
                     <el-form-item label="起始城市" prop="from">
-                        <el-select v-model="updateRouteForm.to" filterable>
+                        <el-select v-model="updateRouteForm.from" filterable>
                             <el-option v-for="c in cities" :key="c.name" :label="c.name" :value="c.name"/>
                         </el-select>
                     </el-form-item>
