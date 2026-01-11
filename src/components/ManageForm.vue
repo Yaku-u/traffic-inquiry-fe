@@ -41,10 +41,14 @@
                 <el-form ref="addRouteRef" :model="addRouteForm" label-width="auto" style="max-width: 500px"
                     :rules="routeRules">
                     <el-form-item label="起始城市" prop="from">
-                        <el-input v-model="addRouteForm.from" />
+                        <el-select v-model="addRouteForm.from" filterable>
+                            <el-option v-for="c in cities" :key="c.name" :label="c.name" :value="c.name" />
+                        </el-select>
                     </el-form-item>
                     <el-form-item label="目的城市" prop="to">
-                        <el-input v-model="addRouteForm.to" />
+                        <el-select v-model="addRouteForm.to" filterable>
+                            <el-option v-for="c in cities" :key="c.name" :label="c.name" :value="c.name"/>
+                        </el-select>
                     </el-form-item>
                     <el-form-item label="出发时间" prop="startTime">
                         <el-time-picker v-model="addRouteForm.startTime" value-format="HH:mm" format="HH:mm" />
@@ -72,10 +76,14 @@
                         <el-input-number v-model="updateRouteForm.id" :controls="false" align="left" />
                     </el-form-item>
                     <el-form-item label="起始城市" prop="from">
-                        <el-input v-model="updateRouteForm.from" />
+                        <el-select v-model="updateRouteForm.to" filterable>
+                            <el-option v-for="c in cities" :key="c.name" :label="c.name" :value="c.name"/>
+                        </el-select>
                     </el-form-item>
                     <el-form-item label="目的城市" prop="to">
-                        <el-input v-model="updateRouteForm.to" />
+                        <el-select v-model="updateRouteForm.to" filterable>
+                            <el-option v-for="c in cities" :key="c.name" :label="c.name" :value="c.name"/>
+                        </el-select>
                     </el-form-item>
                     <el-form-item label="出发时间" prop="startTime">
                         <el-time-picker v-model="updateRouteForm.startTime" value-format="HH:mm" format="HH:mm" />
@@ -269,6 +277,15 @@
     .el-input-number {
         width: 220px;
     }
+
+    .el-input{
+        width: 220px;
+    }
+
+    .el-select{
+        width: 220px;
+    }
+    
 
 
 
