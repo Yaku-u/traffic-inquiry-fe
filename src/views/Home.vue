@@ -48,20 +48,26 @@
     }) => {
         let res
 
+        let type
         if (payload.strategy === "Fastest") {
             res = await getFastestPath(payload.from, payload.to)
+            type = "最短时间"
         }
         else if (payload.strategy === "Cheapest") {
             res = await getCheapestPath(payload.from, payload.to)
+            type = "最少花费"
         }
         else {
             res = await getLessTransferPath(payload.from, payload.to)
+            type = "最少中转"
         }
         routes.value = res.path.map((item: any) => ({
             ...item,
             fromName: cityMap.value[item.from],
-            toName: cityMap.value[item.to]
+            toName: cityMap.value[item.to],
         }))
+        routes.value.push(res.value)
+        routes.value.push(type)
         console.log(JSON.stringify(routes.value))
         if (routes.value.length === 0) {
             ElMessage.error("没有对应路线")

@@ -1,6 +1,6 @@
 <template>
     <div class="main">
-        <el-tabs class="tabs" tab-position="right">
+        <el-tabs class="tabs" tab-position="right" height="700">
             <el-tab-pane label="城市">
                 <el-table :data="cities">
                     <el-table-column label="城市编码" prop="id" />
@@ -18,7 +18,7 @@
 
 
             <el-tab-pane label="路线">
-                <el-table :data="routes">
+                <el-table :data="routes" height="700">
                     <el-table-column label="路线编码" prop="id" />
                     <el-table-column label="起始城市" prop="fromName" />
                     <el-table-column label="目的城市" prop="toName" />
@@ -67,6 +67,7 @@
 
             & .el-table {
                 width: 95%;
+                // height: 70%;
                 --el-table-tr-bg-color: none;
                 --el-table-bg-color: none;
                 --el-table-header-bg-color: none;

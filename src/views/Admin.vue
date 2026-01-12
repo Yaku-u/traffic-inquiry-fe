@@ -32,7 +32,7 @@
             cityMap.set(c.id, c.name)
         })
 
-        routes.value = routeRes.map((item: any) => ({
+        routes.value = await routeRes.map((item: any) => ({
             ...item,
             fromName: cityMap.get(item.from),
             toName: cityMap.get(item.to)

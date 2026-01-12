@@ -1,6 +1,6 @@
 <template>
     <div class="main">
-        <el-table :data="tableData" style="max-width: 650px" height="260">
+        <el-table :data="rows" style="max-width: 650px" height="260" show-summary :summary-method="summaryMethod">
             <el-table-column label="班次" prop="num" />
             <el-table-column label="起始城市" prop="fromName" />
             <el-table-column label="目的城市" prop="toName" />
@@ -13,11 +13,43 @@
 </template>
 
 <script lang="ts" setup>
+    import { computed } from 'vue'
     const props = defineProps<{
         tableData: any[]
     }>()
 
+    const rows = computed(() => {
+        return props.tableData.filter(item => typeof item === 'object')
+    })
 
+    const summaryValue = computed(() => {
+        return props.tableData.find(item => typeof item === 'number') ?? ''
+    })
+
+    const summaryType = computed(() => {
+        return props.tableData.find(item => typeof item === 'string') ?? ''
+    })
+
+    const summaryMethod = ({ columns }: any) => {
+        const sums: (string | number)[] = []
+
+        columns.forEach((column: any, index: number) => {
+            if (index === 0) {
+                // sums[index] = '统计'
+                return
+            }
+
+            if (column.property === 'endTime') {
+                sums[index] = summaryType.value
+            } else if (column.property === 'price') {
+                sums[index] = summaryValue.value
+            } else {
+                sums[index] = ''
+            }
+        })
+
+        return sums
+    }
 
 </script>
 
@@ -41,5 +73,9 @@
             --el-table-bg-color: none;
             --el-table-header-bg-color: none;
         }
+    }
+
+    :deep(.el-table__footer-wrapper){
+        --el-table-row-hover-bg-color: var(--border);
     }
 </style>

@@ -36,7 +36,7 @@
             id: String(c.id),
             name: c.name,
 
-            symbolSize: 60,
+            symbolSize: 55,
             itemStyle: {
                 color: "#409EFF"
             },
@@ -57,7 +57,7 @@
             // },
             lineStyle: {
                 color: isDark()? '#777': '#ccc',
-                width: 2,
+                width: 1.5,
                 opacity: 0.7,
                 curveness: 0.2
             }
