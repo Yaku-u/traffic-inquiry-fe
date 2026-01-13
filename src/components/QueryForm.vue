@@ -59,6 +59,7 @@
 
         if(from.value === to.value){
             ElMessage.error("目的城市不能与起始城市相同")
+            return
         }
 
         emit('submit', {
