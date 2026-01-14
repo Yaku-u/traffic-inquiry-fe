@@ -61,6 +61,10 @@
             res = await getLessTransferPath(payload.from, payload.to)
             type = "最少中转"
         }
+        if(res.path.length === 0){
+            ElMessage.error("没有对应路线")
+            return
+        }
         routes.value = res.path.map((item: any) => ({
             ...item,
             fromName: cityMap.value[item.from],
@@ -69,9 +73,6 @@
         routes.value.push(res.value)
         routes.value.push(type)
         console.log(JSON.stringify(routes.value))
-        if (routes.value.length === 0) {
-            ElMessage.error("没有对应路线")
-        }
     }
 
 
